@@ -1,0 +1,27 @@
+#include "student.h"
+void stud_read(st **ptr)
+{
+        FILE *fp=fopen("student.dat","r");
+        if(fp==0)
+        {
+                printf("File not present\n");
+                return;
+        }
+        st *new,*last;
+        while(1)
+        {
+                new=malloc(sizeof(st));
+                if(fscanf(fp,"%d%s%f",&new->rollno,new->name,&new->percentage)==-1)
+                        break;
+                new->next=0;
+                if(*ptr==0)
+                        *ptr=new;
+                else
+                {
+                        last=*ptr;
+                        while(last->next)
+                                last=last->next;
+                        last->next=new;
+                }
+        }
+}
